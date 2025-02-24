@@ -6,6 +6,9 @@
   .mycontainer {
     @apply container px-40 py-6 mx-auto;
   }
+  .minicontainer {
+    @apply container px-4 py-4 mx-auto;
+  }
 }
 
 ::-webkit-scrollbar{
