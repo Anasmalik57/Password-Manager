@@ -122,21 +122,21 @@ const Manager = () => {
                   return (
                     <tr key={index}>
                       <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
-                        <div className="flex px-4 items-center justify-center md:justify-between  *:mx-auto *:text-xs *:font-semibold md:px-12">
-                          <a className="border border-black w-8 overflow-hidden text-ellipsis md:w-fit" href={item.site} target="_blank">{item.site}</a>
-                          <lord-icon onClick={() => copyText(item.site)} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
+                        <div className="flex px-4 items-center justify-center md:justify-between gap-x-[0.8px] md:gap-0  *:mx-auto *:text-sm *:font-semibold md:px-12">
+                          <a className="w-10 overflow-hidden text-ellipsis md:w-fit" href={item.site} target="_blank">{item.site}</a>
+                          <lord-icon onClick={() => copyText(item.site)} className={"cursor-pointer w-6 mt-2 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
                       <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
-                        <div className="flex px-4 items-center justify-center md:justify-between  *:mx-auto *:text-xs *:font-semibold md:px-12">
-                          <span className="border border-black w-8 overflow-hidden text-ellipsis md:w-fit">{item.username}</span>
-                          <lord-icon onClick={() => copyText(item.username)} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
+                        <div className="flex px-4 items-center justify-center md:justify-between gap-x-[0.8px] md:gap-0  *:mx-auto *:text-sm *:font-semibold md:px-12">
+                          <span className="w-10 overflow-hidden text-ellipsis md:w-fit">{item.username}</span>
+                          <lord-icon onClick={() => copyText(item.username)} className={"cursor-pointer w-6 mt-2 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
                       <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
-                        <div className="flex px-4 items-center justify-center md:justify-between  *:mx-auto *:text-xs *:font-semibold md:px-12">
-                          <span className="border border-black w-8 overflow-hidden text-ellipsis md:w-fit">{item.password}</span>
-                          <lord-icon onClick={() => copyText(item.password)} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
+                        <div className="flex px-4 items-center justify-center md:justify-between gap-x-[0.8px] md:gap-0  *:mx-auto *:text-sm *:font-semibold md:px-12">
+                          <span className="w-10 overflow-hidden text-ellipsis md:w-fit">{item.password}</span>
+                          <lord-icon onClick={() => copyText(item.password)} className={"cursor-pointer w-6 mt-2 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
                       <td className="p-0 md:py-2 border border-white text-center w-32 *:mx-2">
