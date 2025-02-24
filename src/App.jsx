@@ -10,7 +10,9 @@ const App = () => {
       <div className="max-h-[calc(78vh+6px)] overflow-y-scroll">
         <Manager />
       </div>
-      <Footer />
+      <div className="absolute bottom-0 w-full">
+        <Footer />
+      </div>
     </>
   );
 };
