@@ -3,7 +3,7 @@ import hearticon from "../icons/heart.png";
 
 const Footer = () => {
   return (
-    <div className="flex justify-center flex-col gap-1 items-center text-white bg-slate-800 py-2">
+    <div className="flex justify-center flex-col gap-1 items-center text-white bg-slate-800 py-3 md:py-2">
       <h1 className="text-lg font-bold text-center ">
         <a href="/">
           <span className="text-green-500">&lt; </span>

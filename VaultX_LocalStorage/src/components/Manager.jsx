@@ -96,7 +96,7 @@ const Manager = () => {
             )}
           </div>
           <button onClick={savePassword} className="flex justify-center items-center tracking-wide gap-1 w-fit mx-auto px-4 py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-tl from-green-500 via-green-500 to-green-400 hover:from-green-600 hover:via-green-500 hover:to-green-500 transition-all duration-300 ease-in shadow-lg hover:shadow-xl active:scale-110 focus:outline-4 focus:outline-offset-[3px] outline-green-500" >
-            <lord-icon className={"cursor-pointer w-7"} src="https://cdn.lordicon.com/jgnvfzqg.json" trigger="hover" colors="primary:#fff" ></lord-icon>
+            <lord-icon className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/jgnvfzqg.json" trigger="hover" colors="primary:#fff" ></lord-icon>
             Add Password
           </button>
         </div>
@@ -110,7 +110,7 @@ const Manager = () => {
           {passwordArray.length !== 0 && (
             <table className="table-auto w-full rounded-md overflow-hidden">
               <thead className=" bg-green-800 text-white">
-                <tr>
+                <tr className="*:text-sm">
                   <th className="py-2">Site</th>
                   <th className="py-2">Username</th>
                   <th className="py-2">Password</th>
@@ -121,27 +121,27 @@ const Manager = () => {
                 {passwordArray.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td className="py-2 border border-white text-center w-32">
-                        <div className="flex justify-between px-12">
-                          <a href={item.site} target="_blank">{item.site}</a>
-                          <lord-icon onClick={() => copyText(item.site)} className={"cursor-pointer w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
+                      <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
+                        <div className="flex px-4 items-center justify-center md:justify-between  *:mx-auto *:text-xs *:font-semibold md:px-12">
+                          <a className="border border-black w-8 overflow-hidden text-ellipsis md:w-fit" href={item.site} target="_blank">{item.site}</a>
+                          <lord-icon onClick={() => copyText(item.site)} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
-                      <td className="py-2 border border-white text-center w-32">
-                        <div className="flex justify-between px-12">
-                          <span>{item.username}</span>
-                          <lord-icon onClick={() => copyText(item.username)} className={"cursor-pointer w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
+                      <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
+                        <div className="flex px-4 items-center justify-center md:justify-between  *:mx-auto *:text-xs *:font-semibold md:px-12">
+                          <span className="border border-black w-8 overflow-hidden text-ellipsis md:w-fit">{item.username}</span>
+                          <lord-icon onClick={() => copyText(item.username)} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
-                      <td className="py-2 border border-white text-center w-32">
-                        <div className="flex justify-between px-12">
-                          <span>{item.password}</span>
-                          <lord-icon onClick={() => copyText(item.password)} className={"cursor-pointer w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
+                      <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
+                        <div className="flex px-4 items-center justify-center md:justify-between  *:mx-auto *:text-xs *:font-semibold md:px-12">
+                          <span className="border border-black w-8 overflow-hidden text-ellipsis md:w-fit">{item.password}</span>
+                          <lord-icon onClick={() => copyText(item.password)} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
-                      <td className="py-2 border border-white text-center w-32 *:mx-2">
-                        <lord-icon onClick={() => {editPassword(item.id);}}className={"cursor-pointer w-7"}src="https://cdn.lordicon.com/gwlusjdu.json"trigger="hover"colors="primary:#000000"></lord-icon>
-                        <lord-icon onClick={() => { deletePassword(item.id); }} className={"cursor-pointer w-7"} src="https://cdn.lordicon.com/skkahier.json" trigger="hover" colors="primary:#000000" ></lord-icon>
+                      <td className="p-0 md:py-2 border border-white text-center w-32 *:mx-2">
+                        <lord-icon onClick={() => {editPassword(item.id);}}className={"cursor-pointer w-6 md:w-7"}src="https://cdn.lordicon.com/gwlusjdu.json"trigger="hover"colors="primary:#000000"></lord-icon>
+                        <lord-icon onClick={() => { deletePassword(item.id); }} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/skkahier.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                       </td>
                     </tr>
                   );
