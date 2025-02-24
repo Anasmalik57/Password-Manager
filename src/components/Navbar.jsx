@@ -1,5 +1,5 @@
 import React from "react";
-import github from "../icons/github.svg";
+import github from "../icons/github.svg"
 
 const Navbar = () => {
   return (
@@ -12,37 +12,14 @@ const Navbar = () => {
             <span className="text-green-500 ml-[3px]">X /&gt;</span>
           </a>
         </div>
-        <ul className="flex gap-x-6">
-          <li className="*:mx-4 *:font-semibold *:tracking-wider *:text-white ">
-            <a
-              className="transition-all duration-300 border-b-2 border-transparent hover:border-b-current hover:scale-105"
-              href="#"
-            >
-              Home
-            </a>
-            <a
-              className="transition-all duration-300 border-b-2 border-transparent hover:border-b-current hover:scale-105"
-              href="#"
-            >
-              About
-            </a>
-            <a
-              className="transition-all duration-300 border-b-2 border-transparent hover:border-b-current hover:scale-105"
-              href="#"
-            >
-              Career
-            </a>
-            <a
-              className="transition-all duration-300 border-b-2 border-transparent hover:border-b-current hover:scale-105"
-              href="#"
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
+        
         <div className="cursor-pointer">
-          <a href="">
-            <img src={github} className="w-7 invert" alt="" />
+          
+          <a href="https://github.com/Anasmalik57/Password-Manager" target="_blank">
+          <button className="flex justify-center items-center tracking-wide gap-1 w-fit mx-auto px-4 py-2 text-[16px] font-semibold text-white rounded-full bg-gradient-to-tl from-green-500 via-green-500 to-green-400 hover:from-green-600 hover:via-green-500 hover:to-green-500 transition-all duration-300 ease-in shadow-lg hover:shadow-xl active:scale-110 focus:outline-4 focus:outline-offset-[3px] outline-green-500">
+            <img src={github} className="w-5  text-xs" alt="github" />
+            <span>Github</span>
+          </button>
           </a>
         </div>
       </nav>
