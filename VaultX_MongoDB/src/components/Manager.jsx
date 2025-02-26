@@ -10,49 +10,76 @@ const Manager = () => {
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
 
+  const getPasswords = async () => {
+    let req = await fetch("http://localhost:3000");
+    let passwords = await req.json();
+    console.log(passwords);
+    setPasswordArray(passwords);
+  };
+
   useEffect(() => {
-    let password = localStorage.getItem("passwords");
-    if (password) {
-      setPasswordArray(JSON.parse(password));
-    }
+    getPasswords();
   }, []);
 
   const copyText = (text) => {
-    toast.success("Copied to Clipboard", { position: "top-right", autoClose: 3000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light", });
+    toast.success("Copied to Clipboard", {position: "top-right",autoClose: 3000,hideProgressBar: false,closeOnClick: true,pauseOnHover: true,draggable: true,progress: undefined,theme: "light",});
     navigator.clipboard.writeText(text);
   };
 
   // function for Save
-  const savePassword = () => {
-    if(form.site.length > 3 && form.username.length >3 && form.password.length >3){
+  const savePassword = async () => {
+    if (
+      form.site.length > 3 &&
+      form.username.length > 3 &&
+      form.password.length > 3
+    ) {
+      // if any such id exists in the database, delete it
+      if (form.id) {
+        await fetch("http://localhost:3000", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: form.id }),
+        })
+      }
+
       const updatedArray = [...passwordArray, { ...form, id: uuidv4() }];
       setPasswordArray(updatedArray);
-      localStorage.setItem("passwords", JSON.stringify(updatedArray));
-      toast.success("Password Saved Successfully!", { position: "top-right", autoClose: 3000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light", });
+
+      // localStorage.setItem("passwords", JSON.stringify(updatedArray));
+      await fetch("http://localhost:3000", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, id: uuidv4() }),
+      });
+
+      toast.success("Password Saved Successfully!", {position: "top-right",autoClose: 3000,hideProgressBar: false,closeOnClick: true,pauseOnHover: true,draggable: true,progress: undefined,theme: "light",});
       setForm({ site: "", username: "", password: "" });
-    }
-    else{
-      toast.error("Password Not Saved!", { position: "top-right", autoClose: 3000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light", });
+    } else {
+      toast.error("Password Not Saved!", {position: "top-right",autoClose: 3000,hideProgressBar: false,closeOnClick: true,pauseOnHover: true,draggable: true,progress: undefined,theme: "light",});
     }
   };
   // function for Edit
   const editPassword = (id) => {
     console.log("editing--> " + id);
     const filterArray = passwordArray.filter((item) => item.id === id);
-    setForm(filterArray[0]);
+    setForm({ ...filterArray[0], id: id });
     const findAndDelete = passwordArray.filter((item) => item.id != id);
     setPasswordArray(findAndDelete);
   };
   // function for delete
-  const deletePassword = (id) => {
+  const deletePassword = async (id) => {
     console.log("deleted--> " + id);
-    let confirmDelete = confirm("Do you really want to delete this password")
-    if(confirmDelete){
-    const filterArray = passwordArray.filter((item) => item.id != id);
-    setPasswordArray(filterArray);
-    localStorage.setItem("passwords", JSON.stringify(filterArray));
-    toast.success("Password Deleted Successfully", { position: "top-right", autoClose: 3000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light", });
-
+    let confirmDelete = confirm("Do you really want to delete this password");
+    if (confirmDelete) {
+      const filterArray = passwordArray.filter((item) => item.id != id);
+      setPasswordArray(filterArray);
+      let res = await fetch("http://localhost:3000", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id }),
+      });
+      // localStorage.setItem("passwords", JSON.stringify(filterArray));
+      toast.success("Password Deleted Successfully", {position: "top-right",autoClose: 3000,hideProgressBar: false,closeOnClick: true,pauseOnHover: true,draggable: true,progress: undefined,theme: "light",});
     }
   };
 
@@ -68,7 +95,7 @@ const Manager = () => {
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)]"></div>
       </div>
       {/* container */}
-      <div className="p-2 md:p-0 md:mycontainer">
+      <div className="p-2 md:mycontainer">
         <h1 className="text-4xl font-bold text-center">
           <span className="text-green-500">&lt; </span>
           <span>Vault</span>
@@ -88,7 +115,7 @@ const Manager = () => {
               </div>
             ) : (
               <div className="flex justify-between relative tracking-wide text-slate-800 rounded-full px-4 py-1 border-2 border-green-500  w-full outline-none bg-white">
-                <input type="text" name="password" id="passwordhide" value={form.password} onChange={handleChange} className="w-full outline-none " placeholder="Enter Password" />
+                <input type="text" name="password" id="passwordhide" value={form.password} onChange={handleChange} className="w-full outline-none" placeholder="Enter Password" />
                 <span className="absolute right-6 w-6 cursor-pointer" onClick={() => { setShow(!show); }} >
                   <img src={eyecross} alt="eyecross" title="hidePassword" className="p-[1.2px]" />
                 </span>
@@ -96,17 +123,15 @@ const Manager = () => {
             )}
           </div>
           <button onClick={savePassword} className="flex justify-center items-center tracking-wide gap-1 w-fit mx-auto px-4 py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-tl from-green-500 via-green-500 to-green-400 hover:from-green-600 hover:via-green-500 hover:to-green-500 transition-all duration-300 ease-in shadow-lg hover:shadow-xl active:scale-110 focus:outline-4 focus:outline-offset-[3px] outline-green-500" >
-            <lord-icon className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/jgnvfzqg.json" trigger="hover" colors="primary:#fff" ></lord-icon>
-            Add Password
+            <lord-icon className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/jgnvfzqg.json" trigger="hover" colors="primary:#fff" ></lord-icon> 
+            Add Password 
           </button>
         </div>
         {/* password containers */}
         <div className="passwords rounded-md -mt-1">
           <h2 className="font-bold text-xl pb-2.5 px-1 tracking-wide ">Your Passwords</h2>
           {/* showing table of passwords */}
-          {passwordArray.length === 0 && (
-            <div className="border-green-500 text-center p-10 py-20 font-semibold tracking-wide bg-green-200 rounded-xl text-2xl shadow-lg text-green-800">No Passwords to Show</div>
-          )}
+          {passwordArray.length === 0 && (<div className="border-green-500 text-center p-10 py-20 font-semibold tracking-wide bg-green-200 rounded-xl text-2xl shadow-lg text-green-800"> No Passwords to Show </div>)}
           {passwordArray.length !== 0 && (
             <table className="table-auto w-full rounded-md overflow-hidden">
               <thead className=" bg-green-800 text-white">
@@ -123,7 +148,7 @@ const Manager = () => {
                     <tr key={index}>
                       <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
                         <div className="flex px-4 items-center justify-center md:justify-between gap-x-[0.8px] md:gap-0  *:mx-auto *:text-sm *:font-semibold md:px-12">
-                          <a className="w-10 overflow-hidden text-ellipsis md:w-fit" href={item.site} target="_blank">{item.site}</a>
+                          <a className="w-10 overflow-hidden text-ellipsis md:w-fit" href={item.site} target="_blank" >{item.site}</a>
                           <lord-icon onClick={() => copyText(item.site)} className={"cursor-pointer w-6 mt-2 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
@@ -135,12 +160,12 @@ const Manager = () => {
                       </td>
                       <td className="p-0 md:py-2 border border-white text-center w-24 md:w-32">
                         <div className="flex px-4 items-center justify-center md:justify-between gap-x-[0.8px] md:gap-0  *:mx-auto *:text-sm *:font-semibold md:px-12">
-                          <span className="w-10 overflow-hidden text-ellipsis md:w-fit">{item.password}</span>
+                          <span className="w-10 overflow-hidden text-ellipsis md:w-fit  pt-1 tracking-widest">{"*".repeat(item.password.length)}</span>
                           <lord-icon onClick={() => copyText(item.password)} className={"cursor-pointer w-6 mt-2 md:w-7"} src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         </div>
                       </td>
                       <td className="p-0 md:py-2 border border-white text-center w-32 *:mx-2">
-                        <lord-icon onClick={() => {editPassword(item.id);}}className={"cursor-pointer w-6 md:w-7"}src="https://cdn.lordicon.com/gwlusjdu.json"trigger="hover"colors="primary:#000000"></lord-icon>
+                        <lord-icon onClick={() => { editPassword(item.id); }} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/gwlusjdu.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                         <lord-icon onClick={() => { deletePassword(item.id); }} className={"cursor-pointer w-6 md:w-7"} src="https://cdn.lordicon.com/skkahier.json" trigger="hover" colors="primary:#000000" ></lord-icon>
                       </td>
                     </tr>

@@ -68,7 +68,7 @@ const Manager = () => {
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)]"></div>
       </div>
       {/* container */}
-      <div className="p-2 md:p-0 md:mycontainer">
+      <div className="p-2 md:mycontainer">
         <h1 className="text-4xl font-bold text-center">
           <span className="text-green-500">&lt; </span>
           <span>Vault</span>
